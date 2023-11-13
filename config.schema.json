@@ -9,13 +9,13 @@
         "title": "Username",
         "type": "string",
         "required": true,
-        "default": "Example Dynamic Platform"
+        "default": ""
       },
       "password": {
         "title": "Password",
         "type": "string",
         "required": true,
-        "default": "Example Dynamic Platform"
+        "default": ""
       }
     }
   }
