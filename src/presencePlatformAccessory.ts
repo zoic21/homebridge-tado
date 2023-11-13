@@ -22,7 +22,7 @@ export class PresencePlatformAccessory {
   };
 
   constructor(
-    private readonly platform: PresencePlatformAccessory,
+    private readonly platform: TadoHomebridgePlatform,
     private readonly accessory: PlatformAccessory,
   ) {
 
