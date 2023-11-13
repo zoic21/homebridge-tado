@@ -46,11 +46,11 @@ export class PresencePlatformAccessory {
   handleOnSet(value) {
    
     if(value){
-      this.platform.log.debug('Triggered presence to away');
-      this.platform.Tado.setPresence(this.homeId,'away')
-    }else{
       this.platform.log.debug('Triggered presence to home');
       this.platform.Tado.setPresence(this.homeId,'home')
+    }else{
+      this.platform.log.debug('Triggered presence to away');
+      this.platform.Tado.setPresence(this.homeId,'away')
     }
     this.platform.refreshData()
   }
