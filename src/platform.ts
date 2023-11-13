@@ -70,7 +70,7 @@ export class TadoHomebridgePlatform implements DynamicPlatformPlugin {
     
           if (existingAccessory) {
             // the accessory already exists
-            this.log.info('Restoring existing accessory from cache:', existingAccessory.name);
+            this.log.info('Restoring existing accessory from cache:', existingAccessory.displayName);
             new PresencePlatformAccessory(this, existingAccessory);
           } else {
             // the accessory does not yet exist, so we need to create it
