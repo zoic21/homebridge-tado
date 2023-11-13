@@ -14,6 +14,7 @@ export class TadoHomebridgePlatform implements DynamicPlatformPlugin {
   public readonly Service: typeof Service = this.api.hap.Service;
   public readonly Characteristic: typeof Characteristic = this.api.hap.Characteristic;
   public Tado;
+  public Devices = {};
 
   // this is used to track restored cached accessories
   public readonly accessories: PlatformAccessory[] = [];
@@ -52,11 +53,10 @@ export class TadoHomebridgePlatform implements DynamicPlatformPlugin {
       for (const home of resp.homes) {
         this.Tado.getState(home.id).then((state) => {
           const uuid = this.api.hap.uuid.generate('presence'+home.id);
-          const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
           if(state.presence == 'AWAY'){
-            existingAccessory.updateValue(true);
+            this.Devices[uuid].updateValue(true);
           }else{
-            existingAccessory.updateValue(false);
+            this.Devices[uuid].updateValue(false);
           }
         });
       }
@@ -86,7 +86,7 @@ export class TadoHomebridgePlatform implements DynamicPlatformPlugin {
           if (existingAccessory) {
             // the accessory already exists
             this.log.info('Restoring existing accessory from cache:', existingAccessory.displayName);
-            new PresencePlatformAccessory(this, existingAccessory);
+            this.Devices[uuid] = new PresencePlatformAccessory(this, existingAccessory);
           } else {
             // the accessory does not yet exist, so we need to create it
             this.log.info('Adding new accessory: Thermostat ', home.name);
@@ -100,7 +100,7 @@ export class TadoHomebridgePlatform implements DynamicPlatformPlugin {
     
             // create the accessory handler for the newly create accessory
             // this is imported from `platformAccessory.ts`
-            new PresencePlatformAccessory(this, accessory);
+            this.Devices[uuid] = new PresencePlatformAccessory(this, accessory);
     
             // link the accessory to your platform
             this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
