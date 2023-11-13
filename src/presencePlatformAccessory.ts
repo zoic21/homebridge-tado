@@ -49,7 +49,7 @@ export class PresencePlatformAccessory {
 
   updateValue(value){
     this.platform.log.debug('Update switch value to :', value);
-    motionSensorOneService.updateCharacteristic(this.platform.Characteristic.On, value);
+    this.service.updateCharacteristic(this.platform.Characteristic.On, value);
   }
 
   /**
