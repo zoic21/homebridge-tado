@@ -48,7 +48,7 @@ export class PresencePlatformAccessory {
   }
 
   updateValue(value){
-    his.platform.log.debug('Update switch value to :', value);
+    this.platform.log.debug('Update switch value to :', value);
     motionSensorOneService.updateCharacteristic(this.platform.Characteristic.On, value);
   }
 
@@ -56,7 +56,7 @@ export class PresencePlatformAccessory {
    * Handle requests to set the "On" characteristic
    */
   handleOnSet(value) {
-    this.log.debug('Triggered SET On:'+value);
+    this.platform.log.debug('Triggered SET On:'+value);
   }
 
 }
