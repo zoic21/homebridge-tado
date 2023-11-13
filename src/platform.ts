@@ -62,8 +62,8 @@ export class TadoHomebridgePlatform implements DynamicPlatformPlugin {
       });
     });
 
-    return;
-
+    
+/*
     // EXAMPLE ONLY
     // A real plugin you would discover accessories from the local network, cloud services
     // or a user-defined array in the platform config.
@@ -120,6 +120,6 @@ export class TadoHomebridgePlatform implements DynamicPlatformPlugin {
         // link the accessory to your platform
         this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
       }
-    }
+    }*/
   }
 }
