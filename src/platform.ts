@@ -50,9 +50,14 @@ export class TadoHomebridgePlatform implements DynamicPlatformPlugin {
   refreshData(){
     this.Tado.getMe().then((resp) => {
       for (const home of resp.homes) {
-        this.Tado.getState(home.id).then((resp) => {
-          this.log.info(resp);
-
+        this.Tado.getState(home.id).then((state) => {
+          const uuid = this.api.hap.uuid.generate('presence'+home.id);
+          const existingAccessory = this.accessories.find(accessory => accessory.UUID === uuid);
+          if(state.presence == 'AWAY'){
+            existingAccessory.updateValue(true);
+          }else{
+            existingAccessory.updateValue(false);
+          }
         });
       }
     });
