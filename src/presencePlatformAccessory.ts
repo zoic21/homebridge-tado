@@ -53,6 +53,7 @@ export class PresencePlatformAccessory {
     }else{
       this.platform.Tado.setPresence(this.homeId,'home')
     }
+    this.platform.refreshData()
   }
 
 }
