@@ -2,7 +2,7 @@ import { Service, PlatformAccessory, CharacteristicValue } from 'homebridge';
 
 import { TadoHomebridgePlatform } from './platform';
 
-import { Tado } from("node-tado-client");
+import { Tado } from "node-tado-client";
 
 /**
  * Platform Accessory

@@ -2,7 +2,7 @@ import { API, DynamicPlatformPlugin, Logger, PlatformAccessory, PlatformConfig, 
 
 import { PLATFORM_NAME, PLUGIN_NAME } from './settings';
 import { PresencePlatformAccessory } from './presencePlatformAccessory';
-import { Tado } from("node-tado-client");
+import { Tado } from "node-tado-client";
 
 
 /**
