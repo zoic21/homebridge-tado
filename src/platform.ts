@@ -109,7 +109,7 @@ export class TadoHomebridgePlatform implements DynamicPlatformPlugin {
       });
       const self = this;
       setInterval(function(){
-        self.updateDevices();
+        self.refreshData();
       }, 10*60*1000);
     });
   }
