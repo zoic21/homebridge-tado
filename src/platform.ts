@@ -100,9 +100,9 @@ export class TadoHomebridgePlatform implements DynamicPlatformPlugin {
             // link the accessory to your platform
             this.api.registerPlatformAccessories(PLUGIN_NAME, PLATFORM_NAME, [accessory]);
           }
-
         }
       });
+      this.refreshData()
     });
   }
 }
