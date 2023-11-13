@@ -39,8 +39,9 @@ export class PresencePlatformAccessory {
   }
 
   updateValue(value){
+    this.platform.log.info('Update switch value to :', value);
     if(this.service.getCharacteristic(this.platform.Characteristic.On).value != value){
-      this.platform.log.info('Update switch value to :', value);
+      this.platform.log.info('Different switch value :', value);
       this.service.updateCharacteristic(this.platform.Characteristic.On, value);
     }
   }
