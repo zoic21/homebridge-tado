@@ -47,13 +47,19 @@ export class TadoHomebridgePlatform implements DynamicPlatformPlugin {
     this.accessories.push(accessory);
   }
 
+  refreshData(){
+    this.Tado.getState().then((resp) => {
+
+
+    });
+  }
+
   /**
    * This is an example method showing how to register discovered accessories.
    * Accessories must only be registered once, previously created accessories
    * must not be registered again to prevent "duplicate UUID" errors.
    */
   discoverDevices() {
-
     this.Tado = new Tado();
     // Login to the Tado Web API
     this.Tado.login(this.config.username, this.config.password).then(() => {
@@ -92,7 +98,6 @@ export class TadoHomebridgePlatform implements DynamicPlatformPlugin {
           }
 
         }
-        
       });
     });
 

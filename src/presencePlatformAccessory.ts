@@ -11,15 +11,7 @@ import { Tado } from "node-tado-client";
  */
 export class PresencePlatformAccessory {
   private service: Service;
-
-  /**
-   * These are just used to create a working example
-   * You should implement your own code to track the state of your accessory
-   */
-  private exampleStates = {
-    On: false,
-    Brightness: 100,
-  };
+  private homeId;
 
   constructor(
     private readonly platform: TadoHomebridgePlatform,
@@ -35,20 +27,19 @@ export class PresencePlatformAccessory {
     // get the LightBulb service if it exists, otherwise create a new LightBulb service
     // you can create multiple services for each accessory
     this.service = this.accessory.getService(this.platform.Service.Switch) || this.accessory.addService(this.platform.Service.Switch);
-
+    
     // set the service name, this is what is displayed as the default name on the Home app
     // in this example we are using the name we stored in the `accessory.context` in the `discoverDevices` method.
     this.service.setCharacteristic(this.platform.Characteristic.Name, accessory.context.device.name);
 
-    // each service must implement at-minimum the "required characteristics" for the given service type
-    // see https://developers.homebridge.io/#/service/Lightbulb
-
     // register handlers for the On/Off Characteristic
     this.service.getCharacteristic(this.platform.Characteristic.On).onSet(this.handleOnSet.bind(this));
+
+    this.homeId = accessory.context.device.id
   }
 
   updateValue(value){
-    this.platform.log.debug('Update switch value to :', value);
+    this.platform.log.info('Update switch value to :', value);
     this.service.updateCharacteristic(this.platform.Characteristic.On, value);
   }
 
@@ -56,7 +47,12 @@ export class PresencePlatformAccessory {
    * Handle requests to set the "On" characteristic
    */
   handleOnSet(value) {
-    this.platform.log.debug('Triggered SET On:'+value);
+    this.platform.log.info('Triggered SET On:'+value);
+    if(value){
+      this.platform.Tado.setPresence(this.homeId,'away')
+    }else{
+      this.platform.Tado.setPresence(this.homeId,'home')
+    }
   }
 
 }
