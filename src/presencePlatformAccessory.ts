@@ -44,7 +44,6 @@ export class PresencePlatformAccessory {
    * Handle requests to set the "On" characteristic
    */
   handleOnSet(value) {
-   
     if(value){
       this.platform.log.debug('Triggered presence to home');
       this.platform.Tado.setPresence(this.homeId,'home')
