@@ -34,7 +34,7 @@ export class PresencePlatformAccessory {
 
     // get the LightBulb service if it exists, otherwise create a new LightBulb service
     // you can create multiple services for each accessory
-    this.service = new this.Service(this.Service.Switch);
+    this.service = new this.Service(this.platform.Service.Switch);
 
     // set the service name, this is what is displayed as the default name on the Home app
     // in this example we are using the name we stored in the `accessory.context` in the `discoverDevices` method.
