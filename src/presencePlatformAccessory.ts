@@ -12,6 +12,7 @@ import { Tado } from "node-tado-client";
 export class PresencePlatformAccessory {
   private service: Service;
   private homeId;
+  private state;
 
   constructor(
     private readonly platform: TadoHomebridgePlatform,
@@ -30,10 +31,18 @@ export class PresencePlatformAccessory {
     this.service.setCharacteristic(this.platform.Characteristic.Name, accessory.context.device.name);
     // register handlers for the On/Off Characteristic
     this.service.getCharacteristic(this.platform.Characteristic.On).onSet(this.handleOnSet.bind(this));
+    this.service.getCharacteristic(this.platform.Characteristic.On).onGet(this.handleOnGet.bind(this))
     this.homeId = accessory.context.device.id
+
+  }
+
+  public handleOnGet() {
+    this.platform.log.debug('Triggered GET PresencePlatformAccessory');
+    return this.state;
   }
 
   updateValue(value){
+    this.state = value;
     if(this.service.getCharacteristic(this.platform.Characteristic.On).value != value){
       this.platform.log.debug('Update switch value to :', value);
       this.service.updateCharacteristic(this.platform.Characteristic.On, value);
