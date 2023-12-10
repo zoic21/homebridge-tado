@@ -48,12 +48,27 @@ export class PresencePlatformAccessory {
   handleOnSet(value) {
     if(value){
       this.platform.log.debug('Triggered presence to home');
-      this.platform.Tado.setPresence(this.homeId,'home')
+      this.platform.Tado.setPresence(this.homeId,'home').then(() => {
+        this.platform.refreshData().then(() => {
+          this.platform.refreshData()
+        })
+      }).catch(error => {
+        setTimeout(() => {
+          this.platform.Tado.setPresence(this.homeId,'home')
+        }, 1000);
+      });
     }else{
       this.platform.log.debug('Triggered presence to away');
-      this.platform.Tado.setPresence(this.homeId,'away')
+      this.platform.Tado.setPresence(this.homeId,'away').then(() => {
+        this.platform.refreshData()
+      }).catch(error => {
+        setTimeout(() => {
+          this.platform.Tado.setPresence(this.homeId,'away').then(() => {
+            this.platform.refreshData()
+          })
+        }, 1000);
+      });
     }
-    this.platform.refreshData()
   }
 
 }
