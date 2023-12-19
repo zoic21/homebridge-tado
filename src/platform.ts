@@ -59,6 +59,15 @@ export class TadoHomebridgePlatform implements DynamicPlatformPlugin {
             this.Devices[uuid].updateValue(true);
           }
         });
+        this.Tado.getDevices(home.id).then((state) => {
+
+        });  
+        this.Tado.getZones(home.id).then((state) => {
+
+        });
+        this.Tado.getHome(home.id).then((state) => {
+
+        }); 
       }
     });
   }
